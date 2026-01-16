@@ -1,7 +1,7 @@
 """
 Santiago Toriz
 402
-Jeu de vie avec des combats de montres
+Jeu de vie avec des combats de monstres
 """
 import random
 
@@ -15,8 +15,14 @@ force_adversaire = 0
 
 while niveau_vie > 0: 
     if showed_rules is False:
-        force_adversaire = random.randint(1, 5)
+        if numero_combat % 3 == 0 and numero_combat != 0:
+            force_adversaire = random.randint(2, 5) + random.randint(2, 5)
+            print('BOSSFIGHT!')
+        else:
+            force_adversaire = random.randint(1, 5) + random.randint(1, 5)
+
     print('vous tombez face à face avec un adversaire de difficulté : ', force_adversaire)
+    print('vous avez', niveau_vie, 'point de vie')
     print("""Que voulez-vous faire ? 
 1- Combattre cet adversaire
 2- Contourner cet adversaire et aller ouvrir une autre porte
@@ -28,22 +34,23 @@ while niveau_vie > 0:
         numero_adversaire += 1
         print(f"Adversaire : {numero_adversaire}")
         print(f"Force de l'adversaire : {force_adversaire}")
-        print(f"Niveau de vie de l’usager : {niveau_vie}")
-        print(f"Combat {numero_combat}:  {nombre_victoires} victoire vs {nombre_defaites} défaite")
-        d6 = random.randint(1, 6)
-        print('lancer du dé:', d6, )
-        print('')
+        dtotal = random.randint(1, 6) + random.randint(1, 6)
+        print('lancer du dé:', dtotal, )
         showed_rules = False
-        if d6 <= force_adversaire:
+        if dtotal <= force_adversaire:
             statut_combat = 1
             niveau_vie -= force_adversaire
             numero_combat += 1
             nombre_defaites += 1
-        if d6 > force_adversaire:
+            print(f"Combat {numero_combat}:  {nombre_victoires} victoire vs {nombre_defaites} défaite")
+            print('')
+        if dtotal > force_adversaire:
             statut_combat = 2
             niveau_vie += force_adversaire
             numero_combat += 1
             nombre_victoires += 1
+            print(f"Combat {numero_combat}:  {nombre_victoires} victoire vs {nombre_defaites} défaite")
+            print('')
 
     elif choix == 2:
         print('Vous perdez un point de vie')
